@@ -43,6 +43,10 @@ public class Aquarium extends GFX {
 
 	int fish1X = getWidth() + 100;
 	int fish2X = getWidth() + 300;
+	int fish3X = -100;
+
+	Fish nemo = new Fish(Color.orange, 200, 200, true, true);
+	Fish nemo2 = new Fish(Color.green, 250, 100, false, false);
 
 	@Override
 	public void draw(Graphics2D g) {
@@ -51,12 +55,15 @@ public class Aquarium extends GFX {
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		// Draw the fish!
+		nemo.draw(g);
+		nemo2.draw(g);
+
 		DrawFish.facingLeft(g, Color.yellow, fish1X, 200);
 		// Draw the confused fish!
 		DrawFish.facingRight(g, Color.green, fish2X, 300);
 
 		// What if we wanted this little fish to swim, too?
-		DrawFish.smallFacingLeft(g, Color.red, 200, 100);
+		DrawFish.smallFacingRight(g, Color.red, fish3X, 100);
 
 		// Draw our snail!
 		algorithm.draw(g);
@@ -64,12 +71,19 @@ public class Aquarium extends GFX {
 		// Move the fish!
 		fish1X -= 1;
 		fish2X -= 2;
+		fish3X += 1.5;
+
+		// +100 is the buffer
+		if (fish3X > getWidth() + 100) {
+			fish3X = -100;
+		}
 	}
 
 	public static void main(String[] args) {
 		// Uncomment this to make it go slower!
 		// GFX.FPS = 10;
-		// This is potentially helpful for debugging movement if there are too many print statements!
+		// This is potentially helpful for debugging movement if there are too many
+		// print statements!
 
 		// Note that we can store an Aquarium in a variable of type GFX because Aquarium
 		// is a very specific GFX, much like 7 can be stored in a variable of type int!
